@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-
-def bar():
-    return False
-=======
-def foo():
-    return True
->>>>>>> v2.0
