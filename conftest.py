@@ -1,5 +1,6 @@
 import pytest
 from src.user import User
+from src.applications.api.github_api_client import GitHubAPIClient
 
 
 @pytest.fixture(scope = 'session')
@@ -18,3 +19,13 @@ def user_fixture():
 
 def pytest_html_report_title(report):
     report.title = "My special report!"
+
+
+@pytest.fixture(scope='module')
+def git_hub_api_client():
+    api = GitHubAPIClient()
+    api.login()
+
+    yield api
+
+    api.logout()
