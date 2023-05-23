@@ -1,6 +1,7 @@
 import pytest
 from src.user import User
 from src.applications.api.github_api_client import GitHubAPIClient
+from src.config.config import Config
 
 
 @pytest.fixture(scope = 'session')
@@ -24,7 +25,7 @@ def pytest_html_report_title(report):
 @pytest.fixture(scope='module')
 def git_hub_api_client():
     api = GitHubAPIClient()
-    api.login()
+    api.login(Config.get_property('USERNAME'), Config.get_property('PASSWORD'))
 
     yield api
 

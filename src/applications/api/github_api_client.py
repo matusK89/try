@@ -1,3 +1,4 @@
+from src.config.config import Config
 import requests
 
 class GitHubAPIClient:
@@ -5,8 +6,8 @@ class GitHubAPIClient:
     def __init__(self) -> None:
         pass
 
-    def login(self):
-        print("DO LOGIN")
+    def login(self, username, password):
+        print(f"DO LOGIN for {username} and {password}")
 
     def logout(self):
         print("DO LOGOUT")
@@ -15,8 +16,9 @@ class GitHubAPIClient:
         """
             Get list of available emojis in github system
         """
+
         r = requests.get(
-            url="https://api.github.com/emojis",
+            url=f"{Config.get_property('API_BASE_URL')}/emojis",
             headers={
                 "Accept": "application/vnd.github+json",
                 "X-GitHub-Api-Version": "2022-11-28"
