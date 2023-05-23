@@ -42,6 +42,35 @@ class GitHubAPIClient:
         body_repo_names = [x['name'] for x in body['items']]
         
         return body_repo_names
+    
+    def search_topic(self, topic_name):
+        """
+        Search topic by a topic_name param
+        Return list of topics name of existing topics
+        """
+        # sending request
+        r = requests.get(
+            url=f"{Config.get_property('API_BASE_URL')}/search/topics",
+            headers={
+                "Accept": "application/vnd.github+json",
+                "X-GitHub-Api-Version": "2022-11-28"
+            },
+            # add query parameters
+            params={
+                'q': topic_name
+            }
+        )  
+        print("Get Search Topic Response Status Code:", r.status_code)
+
+        # throw an error if response is not 2xx and 3xx
+        r.raise_for_status()
+
+        # get body
+        body = r.json()
+
+        body_topic_names = [x['name'] for x in body['items']]
+        
+        return body_topic_names
 
     def get_emojis(self):
         """
